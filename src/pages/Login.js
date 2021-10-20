@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fetchToken from '../services/FetchAPI';
 
 class Login extends Component {
   constructor() {
