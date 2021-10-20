@@ -9,4 +9,8 @@ const store = createStore(
   // applyMiddleware(thunk), // Prepara pra parte assíncrona
 );
 
+if (window.Cypress) {
+  window.store = store;
+}
+
 export default store;
