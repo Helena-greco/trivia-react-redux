@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import fetchToken from '../services/FetchAPI';
 
 class Login extends Component {
@@ -10,6 +11,7 @@ class Login extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.verifyLogin = this.verifyLogin.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   verifyLogin() {
@@ -25,6 +27,11 @@ class Login extends Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  handleClick() {
+    const { getToken } = this.props;
+    getToken(fetchToken());
   }
 
   render() {
@@ -55,7 +62,7 @@ class Login extends Component {
           type="button"
           data-testid="btn-play"
           disabled={ this.verifyLogin() }
-          // onClick={}
+          onClick={ this.handleClick }
         >
           Jogar
         </button>
@@ -64,4 +71,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  getToken: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getToken: (token) => dispatch(fetchToken(token)),
+});
+
+export default (null, mapDispatchToProps)(Login);
